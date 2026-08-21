@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirement Replacement Guard"
+  short_description: "Prevent retired requirements from returning"
+  default_prompt: "Use $requirement-replacement-guard to replace or remove behavior without leaving stale paths or assumptions."
