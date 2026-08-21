@@ -1,11 +1,33 @@
 ---
 name: requirement-replacement-guard
-description: Prevent stale requirements from surviving or returning when a task replaces, removes, deprecates, or explicitly forbids behavior. Use for final-state contracts, compatibility decisions, cleanup inventories, negative verification, and residual-reference review. Do not use for purely additive changes.
+description: "Guard requirement replacement and removal. Use when a request says remove, delete, replace, supersede, deprecate, stop supporting, forbid, must not appear, do not add back, or uses equivalent Chinese phrases such as \u5220\u9664, \u5220\u6389, \u79fb\u9664, \u66ff\u6362, \u5e9f\u5f03, \u4e0d\u518d\u652f\u6301, \u7981\u6b62, \u4e0d\u80fd\u51fa\u73b0, or \u4e0d\u8981\u518d\u52a0\u56de\u6765, and old behavior could survive or return. Establish a final-state contract, compatibility decision, cleanup inventory, negative verification, and residual review. Do not use for purely additive work, behavior-preserving refactors, housekeeping file deletion, or historical analysis without implementation."
 ---
 
 # Requirement Replacement Guard
 
 Treat requirement replacement and removal as final-state transformations, not local patches to the previous design. Prevent retired behavior from returning through stale code paths, tests, defaults, documentation, comments, generated artifacts, or accumulated task context.
+
+## Automatic invocation routing
+
+Implicit invocation is enabled. Route by semantic intent rather than by a keyword alone.
+
+Apply this skill automatically when one or more of these conditions hold:
+
+- The request replaces, removes, deprecates, forbids, or stops support for previously accepted behavior.
+- The user defines a negative invariant such as "must not appear", "do not add it back", or "this must never be generated again".
+- A previously removed behavior has returned, or the task asks for protection against reintroduction.
+- Completion requires cleaning stale paths across code, tests, defaults, schemas, migrations, documentation, comments, prompts, or generated artifacts.
+- The task needs negative acceptance criteria or a residual-reference review to prove absence.
+
+Do not apply this skill merely because the prompt contains words such as "delete" or "remove". Skip it for:
+
+- deleting or moving files as housekeeping with no supported-behavior change
+- purely additive features
+- behavior-preserving refactors
+- unused import, formatting, or dead-local cleanup that does not change a requirement
+- historical explanation or review with no requested implementation
+
+If routing remains ambiguous, use this skill only when the task changes supported behavior, an acceptance criterion, or an explicit product constraint. When automatically invoked on a clear task, proceed without asking the user to reconfirm the same request.
 
 ## Scope
 
